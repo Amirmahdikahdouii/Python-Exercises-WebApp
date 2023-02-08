@@ -29,9 +29,3 @@ class QuestionAnswerSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuestionAnswer
         fields = ['user', "question", "file"]
-
-    def create(self, validated_data):
-        user = self.validated_data.get("user", None)
-        question = self.validated_data.get("question", None)
-        file = self.validated_data.get("file", None)
-        return QuestionAnswer.objects.create(user=user, question=question, file=file)
