@@ -37,9 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Installed Package
     'rest_framework',
+    'django_filters',
+    # dj-rest-auth pakages
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    'rest_framework.authtoken',
+
     # Third Party Apps
     'questions',
     'Accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -120,3 +130,23 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Django Rest Configs
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+    'SEARCH_PARAM': 's',
+    'ORDERING_PARAM': 'order_by',
+}
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'jwt-token'
+JWT_AUTH_REFRESH_COOKIE = 'jwt-refresh-token'
+SITE_ID = 1
