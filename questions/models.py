@@ -14,7 +14,7 @@ class Question(models.Model):
 class QuestionAnswer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="User")
     question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name="Question")
-    file = models.FileField()
+    file = models.FileField(upload_to='questions/answers/')
 
     def __str__(self):
         return f"{self.id}- {self.user.username}"

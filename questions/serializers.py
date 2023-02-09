@@ -23,7 +23,7 @@ class QuestionAnswerSerializer(serializers.ModelSerializer):
                 'first_name': instance.user.first_name,
                 'last_name': instance.user.last_name,
             },
-            'file': instance.file,
+            'file': instance.file.name,
         }
 
     class Meta:

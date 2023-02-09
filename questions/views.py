@@ -4,7 +4,7 @@ from .serializers import QuestionSerializer, QuestionAnswerSerializer
 
 # Permissions
 from .permissions import IsStaffOrReadOnly
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
@@ -25,14 +25,11 @@ class QuestionViewSet(ModelViewSet):
 
 
 class QuestionAnswersViewSet(ModelViewSet):
-    def get_permissions(self):
-        permission_classes = [AllowAny]
-        if self.action not in ['list', 'retrieve']:
-            permission_classes = [IsStaffOrReadOnly]
-        return [permission() for permission in permission_classes]
-
-    queryset = QuestionAnswer.objects.all()
+    permission_classes = [IsAuthenticated]
     serializer_class = QuestionAnswerSerializer
+
+    def get_queryset(self):
+        return QuestionAnswer.objects.filter(user=self.request.user)
 
     def create(self, request, *args, **kwargs):
         question_id = request.data.get("questionID")
