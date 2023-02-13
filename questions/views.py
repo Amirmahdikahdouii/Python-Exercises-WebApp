@@ -13,6 +13,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 
 
 class QuestionViewSet(ModelViewSet):
+    # API EndPoint for Getting, Updating, Adding, Deleting Questions
     queryset = Question.objects.filter(status=True)
     serializer_class = QuestionSerializer
     lookup_field = 'id'
@@ -25,6 +26,7 @@ class QuestionViewSet(ModelViewSet):
 
 
 class QuestionAnswersViewSet(ModelViewSet):
+    # API endpoint for Creating, getting QuestionAnswer Record
     permission_classes = [IsAuthenticated]
     serializer_class = QuestionAnswerSerializer
 

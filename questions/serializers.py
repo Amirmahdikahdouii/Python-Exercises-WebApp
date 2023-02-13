@@ -3,12 +3,14 @@ from .models import Question, QuestionAnswer
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    # Question Model Serializer
     class Meta:
         model = Question
         exclude = ['status']
 
 
 class QuestionAnswerSerializer(serializers.ModelSerializer):
+    # Question Answer Serializer
     def to_representation(self, instance):
         return {
             'id': instance.id,
